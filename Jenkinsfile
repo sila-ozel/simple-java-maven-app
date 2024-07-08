@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3.9.0'
-            args '-v $JENKINS_HOME/.m2:/root/.m2'
+            args '-v $JENKINS_HOME/.m2:/home/jenkins/.m2'
         }
     }
     stages {
@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Debug') {
             steps {
-                sh 'ls -la /root/.m2'
+                sh 'ls -la /home/jenkins/.m2'
                 sh 'whoami'
             }
         }
