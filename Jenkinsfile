@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3.9.8-eclipse-temurin-22-alpine'
+            image 'maven:3.9.0'
             args '-v $JENKINS_HOME/.m2:/root/.m2'
         }
     }
@@ -12,9 +12,15 @@ pipeline {
                 sh 'mvn --version'
             }
         }
+        stage('Debug') {
+            steps {
+                sh 'ls -la /root/.m2'
+                sh 'whoami'
+            }
+        }
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -X -B -DskipTests clean package'
             }
         }
     }
